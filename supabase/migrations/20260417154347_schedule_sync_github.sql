@@ -11,10 +11,10 @@ END $$;
 SELECT cron.schedule(
   'sync-github-every-10-mins',
   '*/10 * * * *',
-  $
+  $$
     SELECT net.http_post(
       url:='https://soenfmydetgzogueigtu.supabase.co/functions/v1/sync-github',
       headers:='{"Content-Type": "application/json"}'::jsonb
     )
-  $
+  $$
 );

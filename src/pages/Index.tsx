@@ -1,5 +1,6 @@
 import { useMemo, useCallback, useState } from 'react'
 import { useAppContext } from '@/context/AppContext'
+import { useCampanhasSupabase } from '@/hooks/use-campanhas-supabase'
 import { MetricCard } from '@/components/MetricCard'
 import { ComparisonTable } from '@/components/ComparisonTable'
 import { OtherChannelsTable } from '@/components/OtherChannelsTable'
@@ -41,11 +42,23 @@ const otherCols = [
   { id: 'userName', label: 'Usuário Responsável' },
 ]
 
-const SectionHeader = ({ title, cols, visibleCols, setVisibleCols, onExpand }: any) => {
+import { Plus } from 'lucide-react'
+
+const SectionHeader = ({ title, cols, visibleCols, setVisibleCols, onExpand, onAdd }: any) => {
   return (
     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end mb-4 gap-4">
       <h2 className="text-lg font-semibold text-slate-800">{title}</h2>
       <div className="flex flex-wrap gap-2">
+        {onAdd && (
+          <Button
+            onClick={onAdd}
+            variant="outline"
+            size="sm"
+            className="h-8 gap-2 bg-white text-xs"
+          >
+            <Plus className="w-4 h-4" /> Adicionar
+          </Button>
+        )}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="outline" size="sm" className="h-8 gap-2 bg-white text-xs">
@@ -90,6 +103,16 @@ export default function Index() {
     logAction,
     user,
   } = useAppContext()
+
+  const {
+    updateCampanha,
+    bulkUpdateCampanhas,
+    bulkPasteCampanhas,
+    deleteCampanha,
+    bulkDeleteCampanhas,
+    reorderCampanhas,
+    addCampanha,
+  } = useCampanhasSupabase()
 
   const { toast } = useToast()
 
@@ -146,51 +169,16 @@ export default function Index() {
     const pastOtherRows = filterRows(otherChannelsData, dates.pastFrom, dates.pastTo, true)
 
     const aggregateCampaigns = (rows: CampaignRow[], compareRows: CampaignRow[]) => {
-      const getRowKey = (r: any) => `${r.platform}|${r.campaign}|${r.audience}`
-      const grouped = new Map<string, any>()
-
-      rows.forEach((r) => {
-        const key = getRowKey(r)
-        if (!grouped.has(key)) {
-          grouped.set(key, {
-            id: key,
-            platform: r.platform,
-            campaign: r.campaign,
-            audience: r.audience,
-            impressions: 0,
-            reach: 0,
-            clicksAds: 0,
-            clicksRD: 0,
-            leadsSalesSheet: 0,
-            leadsRD: 0,
-            quoteQty: 0,
-            quoteValue: 0,
-            orderQty: 0,
-            orderValue: 0,
-            cost: 0,
-            pastClicksRD: 0,
-          })
-        }
-        const g = grouped.get(key)
-        g.impressions += r.impressions || 0
-        g.reach += r.reach || 0
-        g.clicksAds += r.clicksAds || 0
-        g.clicksRD += r.clicksRD || 0
-        g.leadsSalesSheet += r.leadsSalesSheet || 0
-        g.leadsRD += r.leadsRD || 0
-        g.quoteQty += r.quoteQty || 0
-        g.quoteValue += r.quoteValue || 0
-        g.orderQty += r.orderQty || 0
-        g.orderValue += r.orderValue || 0
-        g.cost += r.cost || 0
-      })
-
-      compareRows.forEach((r) => {
-        const key = getRowKey(r)
-        if (grouped.has(key)) grouped.get(key).pastClicksRD += r.clicksRD || 0
-      })
-
-      return Array.from(grouped.values())
+      return rows
+        .map((r) => {
+          const pastMatching = compareRows.filter(
+            (p) =>
+              p.platform === r.platform && p.campaign === r.campaign && p.audience === r.audience,
+          )
+          const pastClicksRD = pastMatching.reduce((s, p) => s + (p.clicksRD || 0), 0)
+          return { ...r, pastClicksRD }
+        })
+        .sort((a, b) => (a.ordem || 0) - (b.ordem || 0))
     }
 
     const aggregateOther = (rows: OtherChannelRow[]) => {
@@ -264,153 +252,20 @@ export default function Index() {
     }
   }, [data, otherChannelsData, dates])
 
-  const handleUpdateCampGeneric = useCallback(
-    (id: string, field: string, newValue: number) => {
-      const [platform, campaign, audience] = id.split('|')
-      const fromD = dates.currentFrom
-      const toD = dates.currentTo
-
-      setData((prev) => {
-        const newData = [...prev]
-        const matchingRows = newData.filter((r) => {
-          const dDate = parseISO(r.startDate || r.date || '')
-          return (
-            r.platform === platform &&
-            r.campaign === campaign &&
-            r.audience === audience &&
-            dDate >= fromD &&
-            dDate <= toD
-          )
-        })
-
-        if (matchingRows.length > 0) {
-          const currentTotal = matchingRows.reduce(
-            (sum, r) => sum + (Number(r[field as keyof CampaignRow]) || 0),
-            0,
-          )
-          const diff = newValue - currentTotal
-          const firstRowIndex = newData.findIndex((r) => r.id === matchingRows[0].id)
-          if (firstRowIndex !== -1) {
-            const oldRow = newData[firstRowIndex]
-            const newRow = {
-              ...oldRow,
-              [field]: (Number(oldRow[field as keyof CampaignRow]) || 0) + diff,
-              version: (oldRow.version || 1) + 1,
-            }
-            newData[firstRowIndex] = newRow
-            logAction('UPDATE_DATA', `Editou ${field} em ${oldRow.campaign}`, {
-              id: oldRow.id,
-              prev: oldRow,
-              next: newRow,
-            })
-          }
-        }
-        return newData
-      })
-      toast({
-        title: 'Atualização Automática',
-        description: 'Os dados estão sendo sincronizados com a nuvem.',
-        duration: 2000,
-      })
-    },
-    [dates, setData, logAction, toast],
-  )
-
-  const handleBulkUpdateCampGeneric = useCallback(
-    (ids: string[], updates: Record<string, number>) => {
-      const fromD = dates.currentFrom
-      const toD = dates.currentTo
-
-      setData((prev) => {
-        const newData = [...prev]
-        ids.forEach((id) => {
-          const [platform, campaign, audience] = id.split('|')
-          const matchingRows = newData.filter((r) => {
-            const dDate = parseISO(r.startDate || r.date || '')
-            return (
-              r.platform === platform &&
-              r.campaign === campaign &&
-              r.audience === audience &&
-              dDate >= fromD &&
-              dDate <= toD
-            )
-          })
-
-          if (matchingRows.length > 0) {
-            const firstRowIndex = newData.findIndex((r) => r.id === matchingRows[0].id)
-            if (firstRowIndex !== -1) {
-              const oldRow = newData[firstRowIndex]
-              const newRow = { ...oldRow, version: (oldRow.version || 1) + 1 }
-              Object.entries(updates).forEach(([field, val]) => {
-                const currentTotal = matchingRows.reduce(
-                  (sum, r) => sum + (Number(r[field as keyof CampaignRow]) || 0),
-                  0,
-                )
-                const diff = val - currentTotal
-                newRow[field as keyof CampaignRow] =
-                  (Number(oldRow[field as keyof CampaignRow]) || 0) + diff
-              })
-              newData[firstRowIndex] = newRow
-            }
-          }
-        })
-        logAction('BULK_UPDATE_DATA', `Edição em massa aplicada a ${ids.length} campanhas`, {
-          updates,
-        })
-        return newData
-      })
-      toast({
-        title: 'Edição em Lote',
-        description: 'Sincronizando alterações em massa com a nuvem...',
-      })
-    },
-    [dates, setData, logAction, toast],
-  )
-
-  const handleDeleteCampGeneric = useCallback(
-    (id: string) => {
-      const [platform, campaign, audience] = id.split('|')
-      const fromD = dates.currentFrom
-      const toD = dates.currentTo
-
-      setData((prev) => {
-        const newData = prev.filter((r) => {
-          const dDate = parseISO(r.startDate || r.date || '')
-          const isMatch =
-            r.platform === platform &&
-            r.campaign === campaign &&
-            r.audience === audience &&
-            dDate >= fromD &&
-            dDate <= toD
-          return !isMatch
-        })
-        logAction('DELETE_DATA', `Excluiu a campanha ${campaign}`, { id })
-        return newData
-      })
-      toast({ title: 'Ação Sincronizada', description: 'Registro excluído do banco central.' })
-    },
-    [dates, setData, logAction, toast],
-  )
-
-  const handleBulkDeleteCampGeneric = useCallback(
-    (ids: string[]) => {
-      const fromD = dates.currentFrom
-      const toD = dates.currentTo
-
-      setData((prev) => {
-        const newData = prev.filter((r) => {
-          const dDate = parseISO(r.startDate || r.date || '')
-          const key = `${r.platform}|${r.campaign}|${r.audience}`
-          const isMatch = ids.includes(key) && dDate >= fromD && dDate <= toD
-          return !isMatch
-        })
-        logAction('BULK_DELETE_DATA', `Excluiu ${ids.length} campanhas`, { ids })
-        return newData
-      })
-      toast({ title: 'Ação Sincronizada', description: 'Exclusão em lote confirmada.' })
-    },
-    [dates, setData, logAction, toast],
-  )
+  const handleAddNewCamp = () => {
+    addCampanha({
+      platform: 'Google',
+      campaign: 'Nova Campanha',
+      audience: 'Geral',
+      startDate: filters.dateRange?.from
+        ? format(filters.dateRange.from, 'yyyy-MM-dd')
+        : format(new Date(), 'yyyy-MM-dd'),
+      endDate: filters.dateRange?.to
+        ? format(filters.dateRange.to, 'yyyy-MM-dd')
+        : format(new Date(), 'yyyy-MM-dd'),
+      ordem: data.length,
+    })
+  }
 
   const handleUpdateOtherGeneric = useCallback(
     (channel: string, field: string, newValue: number) => {
@@ -624,14 +479,17 @@ export default function Index() {
             visibleCols={visibleCols}
             setVisibleCols={setVisibleCols}
             onExpand={() => setExpandedState((prev) => ({ ...prev, camp: true }))}
+            onAdd={handleAddNewCamp}
           />
           <ComparisonTable
             mergedData={currMergedCamp}
             dateRange={{ from: dates.currentFrom, to: dates.currentTo }}
-            onUpdate={handleUpdateCampGeneric}
-            onBulkUpdate={handleBulkUpdateCampGeneric}
-            onDelete={handleDeleteCampGeneric}
-            onBulkDelete={handleBulkDeleteCampGeneric}
+            onUpdate={updateCampanha}
+            onBulkUpdate={bulkUpdateCampanhas}
+            onBulkPasteUpdate={bulkPasteCampanhas}
+            onDelete={deleteCampanha}
+            onBulkDelete={bulkDeleteCampanhas}
+            onReorder={reorderCampanhas}
             visibleCols={visibleCols}
           />
         </div>
@@ -667,10 +525,12 @@ export default function Index() {
             <ComparisonTable
               mergedData={currMergedCamp}
               dateRange={{ from: dates.currentFrom, to: dates.currentTo }}
-              onUpdate={handleUpdateCampGeneric}
-              onBulkUpdate={handleBulkUpdateCampGeneric}
-              onDelete={handleDeleteCampGeneric}
-              onBulkDelete={handleBulkDeleteCampGeneric}
+              onUpdate={updateCampanha}
+              onBulkUpdate={bulkUpdateCampanhas}
+              onBulkPasteUpdate={bulkPasteCampanhas}
+              onDelete={deleteCampanha}
+              onBulkDelete={bulkDeleteCampanhas}
+              onReorder={reorderCampanhas}
               visibleCols={visibleCols}
               isExpanded={true}
             />

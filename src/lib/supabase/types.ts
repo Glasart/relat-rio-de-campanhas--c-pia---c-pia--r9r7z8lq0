@@ -1,17 +1,11 @@
 // AVOID UPDATING THIS FILE DIRECTLY. It is automatically generated.
-export type Json =
-  | string
-  | number
-  | boolean
-  | null
-  | { [key: string]: Json | undefined }
-  | Json[]
+export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
 
 export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.4"
+    PostgrestVersion: '14.4'
   }
   public: {
     Tables: {
@@ -156,18 +150,18 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "cotacoes_frete_pedido_id_fkey"
-            columns: ["pedido_id"]
+            foreignKeyName: 'cotacoes_frete_pedido_id_fkey'
+            columns: ['pedido_id']
             isOneToOne: false
-            referencedRelation: "pedidos"
-            referencedColumns: ["id"]
+            referencedRelation: 'pedidos'
+            referencedColumns: ['id']
           },
           {
-            foreignKeyName: "cotacoes_frete_transportadora_id_fkey"
-            columns: ["transportadora_id"]
+            foreignKeyName: 'cotacoes_frete_transportadora_id_fkey'
+            columns: ['transportadora_id']
             isOneToOne: false
-            referencedRelation: "transportadoras"
-            referencedColumns: ["id"]
+            referencedRelation: 'transportadoras'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -204,11 +198,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "historico_atualizacoes_pedido_id_fkey"
-            columns: ["pedido_id"]
+            foreignKeyName: 'historico_atualizacoes_pedido_id_fkey'
+            columns: ['pedido_id']
             isOneToOne: false
-            referencedRelation: "pedidos"
-            referencedColumns: ["id"]
+            referencedRelation: 'pedidos'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -242,11 +236,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "itens_pedido_pedido_id_fkey"
-            columns: ["pedido_id"]
+            foreignKeyName: 'itens_pedido_pedido_id_fkey'
+            columns: ['pedido_id']
             isOneToOne: false
-            referencedRelation: "pedidos"
-            referencedColumns: ["id"]
+            referencedRelation: 'pedidos'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -286,11 +280,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "notificacoes_enviadas_pedido_id_fkey"
-            columns: ["pedido_id"]
+            foreignKeyName: 'notificacoes_enviadas_pedido_id_fkey'
+            columns: ['pedido_id']
             isOneToOne: false
-            referencedRelation: "pedidos"
-            referencedColumns: ["id"]
+            referencedRelation: 'pedidos'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -390,11 +384,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "pedidos_cliente_id_fkey"
-            columns: ["cliente_id"]
+            foreignKeyName: 'pedidos_cliente_id_fkey'
+            columns: ['cliente_id']
             isOneToOne: false
-            referencedRelation: "clientes"
-            referencedColumns: ["id"]
+            referencedRelation: 'clientes'
+            referencedColumns: ['id']
           },
         ]
       }
@@ -576,33 +570,31 @@ export type Database = {
   }
 }
 
-type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
+type DatabaseWithoutInternals = Omit<Database, '__InternalSupabase'>
 
-type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, 'public'>]
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
-    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
+    | keyof (DefaultSchema['Tables'] & DefaultSchema['Views'])
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Views'])
     : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Views'])[TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])
-    ? (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema['Tables'] & DefaultSchema['Views'])
+    ? (DefaultSchema['Tables'] & DefaultSchema['Views'])[DefaultSchemaTableNameOrOptions] extends {
         Row: infer R
       }
       ? R
@@ -611,23 +603,23 @@ export type Tables<
 
 export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema["Tables"]
+    | keyof DefaultSchema['Tables']
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables']
     : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
+    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
         Insert: infer I
       }
       ? I
@@ -636,23 +628,23 @@ export type TablesInsert<
 
 export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema["Tables"]
+    | keyof DefaultSchema['Tables']
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables']
     : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
+    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
         Update: infer U
       }
       ? U
@@ -661,36 +653,36 @@ export type TablesUpdate<
 
 export type Enums<
   DefaultSchemaEnumNameOrOptions extends
-    | keyof DefaultSchema["Enums"]
+    | keyof DefaultSchema['Enums']
     | { schema: keyof DatabaseWithoutInternals },
   EnumName extends DefaultSchemaEnumNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions['schema']]['Enums']
     : never = never,
 > = DefaultSchemaEnumNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
-  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
-    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions['schema']]['Enums'][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema['Enums']
+    ? DefaultSchema['Enums'][DefaultSchemaEnumNameOrOptions]
     : never
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
-    | keyof DefaultSchema["CompositeTypes"]
+    | keyof DefaultSchema['CompositeTypes']
     | { schema: keyof DatabaseWithoutInternals },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes']
     : never = never,
 > = PublicCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
-    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes'][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema['CompositeTypes']
+    ? DefaultSchema['CompositeTypes'][PublicCompositeTypeNameOrOptions]
     : never
 
 export const Constants = {
@@ -698,7 +690,6 @@ export const Constants = {
     Enums: {},
   },
 } as const
-
 
 // ====== DATABASE EXTENDED CONTEXT (auto-generated) ======
 // This section contains actual PostgreSQL column types, constraints, RLS policies,
@@ -967,7 +958,7 @@ export const Constants = {
 //       RETURN NEW;
 //   END;
 //   $function$
-//   
+//
 // FUNCTION calc_performance_campanha()
 //   CREATE OR REPLACE FUNCTION public.calc_performance_campanha()
 //    RETURNS trigger
@@ -979,7 +970,7 @@ export const Constants = {
 //       RETURN NEW;
 //   END;
 //   $function$
-//   
+//
 // FUNCTION calc_performance_campanha_new()
 //   CREATE OR REPLACE FUNCTION public.calc_performance_campanha_new()
 //    RETURNS trigger
@@ -992,7 +983,7 @@ export const Constants = {
 //       NEW.cvl := CASE WHEN NEW.leads_base_planilhas_vendas > 0 THEN NEW.leads_base_rd / NEW.leads_base_planilhas_vendas ELSE 0 END;
 //       NEW.leads_orcamento := CASE WHEN NEW.orcamentos_semana > 0 THEN (NEW.leads_base_rd / NEW.orcamentos_semana) * 100 ELSE 0 END;
 //       NEW.orcamento_pedido := CASE WHEN NEW.pedidos_semana > 0 THEN (NEW.orcamentos_semana / NEW.pedidos_semana) * 100 ELSE 0 END;
-//   
+//
 //       SELECT * INTO hist FROM public.performance_campanha_historico WHERE campanha_id = NEW.id ORDER BY criado_em DESC LIMIT 1;
 //       IF FOUND THEN
 //           NEW.dif_cliques := NEW.cliques_base_rd - hist.cliques_base_rd_semana_anterior;
@@ -1001,14 +992,14 @@ export const Constants = {
 //           NEW.dif_cliques := NEW.cliques_base_rd;
 //           NEW.dif_leads := NEW.leads_base_rd;
 //       END IF;
-//   
+//
 //       NEW.cliques := NEW.cliques_base_ads;
 //       NEW.leads := NEW.leads_base_rd;
-//   
+//
 //       RETURN NEW;
 //   END;
 //   $function$
-//   
+//
 // FUNCTION calculate_campanhas_metrics()
 //   CREATE OR REPLACE FUNCTION public.calculate_campanhas_metrics()
 //    RETURNS trigger
@@ -1021,7 +1012,7 @@ export const Constants = {
 //       NEW.cvl := CASE WHEN NEW.leads_base_planilhas_vendas > 0 THEN NEW.leads_base_rd / NEW.leads_base_planilhas_vendas ELSE 0 END;
 //       NEW.leads_orcamento := CASE WHEN NEW.orcamentos_semana > 0 THEN (NEW.leads_base_rd / NEW.orcamentos_semana) * 100 ELSE 0 END;
 //       NEW.orcamento_pedido := CASE WHEN NEW.pedidos_semana > 0 THEN (NEW.orcamentos_semana / NEW.pedidos_semana) * 100 ELSE 0 END;
-//   
+//
 //       SELECT * INTO hist FROM public.campanhas_historico_semanal WHERE campanha_id = NEW.id ORDER BY criado_em DESC LIMIT 1;
 //       IF FOUND THEN
 //           NEW.dif_cliques_base_rd := NEW.cliques_base_rd - hist.cliques_base_rd_semana_anterior;
@@ -1030,11 +1021,11 @@ export const Constants = {
 //           NEW.dif_cliques_base_rd := NEW.cliques_base_rd;
 //           NEW.dif_leads_base_rd := NEW.leads_base_rd;
 //       END IF;
-//   
+//
 //       RETURN NEW;
 //   END;
 //   $function$
-//   
+//
 // FUNCTION calculate_canais_metrics()
 //   CREATE OR REPLACE FUNCTION public.calculate_canais_metrics()
 //    RETURNS trigger
@@ -1046,7 +1037,7 @@ export const Constants = {
 //       RETURN NEW;
 //   END;
 //   $function$
-//   
+//
 // FUNCTION fn_performance_campanhas_calc()
 //   CREATE OR REPLACE FUNCTION public.fn_performance_campanhas_calc()
 //    RETURNS trigger
@@ -1060,35 +1051,35 @@ export const Constants = {
 //     ELSE
 //       NEW.ctr_percentual := (NEW.cliques_ads / NEW.impressoes) * 100;
 //     END IF;
-//   
+//
 //     -- CVL
 //     IF NEW.leads_planilha IS NULL OR NEW.leads_planilha = 0 THEN
 //       NEW.cvl := NULL;
 //     ELSE
 //       NEW.cvl := (NEW.leads_rd / NEW.leads_planilha);
 //     END IF;
-//   
+//
 //     -- Leads/Orçamentos %
 //     IF NEW.orcamentos_qtd IS NULL OR NEW.orcamentos_qtd = 0 THEN
 //       NEW.leads_orcamento_percentual := NULL;
 //     ELSE
 //       NEW.leads_orcamento_percentual := (NEW.leads_rd / NEW.orcamentos_qtd) * 100;
 //     END IF;
-//   
+//
 //     -- Orçamentos/Pedidos %
 //     IF NEW.pedidos_qtd IS NULL OR NEW.pedidos_qtd = 0 THEN
 //       NEW.orcamento_pedido_percentual := NULL;
 //     ELSE
 //       NEW.orcamento_pedido_percentual := (NEW.orcamentos_qtd / NEW.pedidos_qtd) * 100;
 //     END IF;
-//   
+//
 //     -- dif_cliques (não especificado na lista, mas parece derivado)
 //     IF NEW.cliques_ads IS NULL OR NEW.cliques_rd IS NULL THEN
 //       NEW.dif_cliques := NULL;
 //     ELSE
 //       NEW.dif_cliques := NEW.cliques_ads - NEW.cliques_rd;
 //     END IF;
-//   
+//
 //     -- timestamps
 //     NEW.atualizado_em := now();
 //     IF TG_OP = 'INSERT' THEN
@@ -1096,11 +1087,11 @@ export const Constants = {
 //         NEW.criado_em := now();
 //       END IF;
 //     END IF;
-//   
+//
 //     RETURN NEW;
 //   END;
 //   $function$
-//   
+//
 // FUNCTION handle_new_user()
 //   CREATE OR REPLACE FUNCTION public.handle_new_user()
 //    RETURNS trigger
@@ -1113,7 +1104,7 @@ export const Constants = {
 //     RETURN NEW;
 //   END;
 //   $function$
-//   
+//
 // FUNCTION rls_auto_enable()
 //   CREATE OR REPLACE FUNCTION public.rls_auto_enable()
 //    RETURNS event_trigger
@@ -1144,7 +1135,7 @@ export const Constants = {
 //     END LOOP;
 //   END;
 //   $function$
-//   
+//
 
 // --- TRIGGERS ---
 // Table: canais_comunicacao
@@ -1161,4 +1152,3 @@ export const Constants = {
 //   CREATE UNIQUE INDEX pedidos_numero_rastreio_key ON public.pedidos USING btree (numero_rastreio)
 // Table: transportadoras
 //   CREATE UNIQUE INDEX transportadoras_nome_key ON public.transportadoras USING btree (nome)
-

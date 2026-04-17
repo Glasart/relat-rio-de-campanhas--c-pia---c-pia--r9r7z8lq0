@@ -30,6 +30,7 @@ export interface CampaignRow {
   version?: number
   createdAt?: string
   originalId?: string
+  ordem?: number
 }
 
 export interface OtherChannelRow {

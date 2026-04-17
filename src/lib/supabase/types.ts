@@ -1,95 +1,20 @@
 // AVOID UPDATING THIS FILE DIRECTLY. It is automatically generated.
-export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[]
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[]
 
 export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: '14.4'
+    PostgrestVersion: "14.4"
   }
   public: {
     Tables: {
-      campanhas_old_backup: {
-        Row: {
-          alcance: number | null
-          cliques_ads: number | null
-          cliques_rd: number | null
-          criado_em: string
-          ctr: number | null
-          cvl: number | null
-          data_fim: string | null
-          data_inicio: string | null
-          dif_cliques: number | null
-          id: string
-          impressoes: number | null
-          investimento: number | null
-          leads_orcamento: number | null
-          leads_plan: number | null
-          leads_rd: number | null
-          nome_campanha: string | null
-          orcamento_pedido: number | null
-          orcamentos_qtd: number | null
-          pedidos_qtd: number | null
-          plataforma_canal: string | null
-          publico: string | null
-          usuario_id: string
-          valor_orcamento: number | null
-          valor_pedidos: number | null
-        }
-        Insert: {
-          alcance?: number | null
-          cliques_ads?: number | null
-          cliques_rd?: number | null
-          criado_em?: string
-          ctr?: number | null
-          cvl?: number | null
-          data_fim?: string | null
-          data_inicio?: string | null
-          dif_cliques?: number | null
-          id?: string
-          impressoes?: number | null
-          investimento?: number | null
-          leads_orcamento?: number | null
-          leads_plan?: number | null
-          leads_rd?: number | null
-          nome_campanha?: string | null
-          orcamento_pedido?: number | null
-          orcamentos_qtd?: number | null
-          pedidos_qtd?: number | null
-          plataforma_canal?: string | null
-          publico?: string | null
-          usuario_id: string
-          valor_orcamento?: number | null
-          valor_pedidos?: number | null
-        }
-        Update: {
-          alcance?: number | null
-          cliques_ads?: number | null
-          cliques_rd?: number | null
-          criado_em?: string
-          ctr?: number | null
-          cvl?: number | null
-          data_fim?: string | null
-          data_inicio?: string | null
-          dif_cliques?: number | null
-          id?: string
-          impressoes?: number | null
-          investimento?: number | null
-          leads_orcamento?: number | null
-          leads_plan?: number | null
-          leads_rd?: number | null
-          nome_campanha?: string | null
-          orcamento_pedido?: number | null
-          orcamentos_qtd?: number | null
-          pedidos_qtd?: number | null
-          plataforma_canal?: string | null
-          publico?: string | null
-          usuario_id?: string
-          valor_orcamento?: number | null
-          valor_pedidos?: number | null
-        }
-        Relationships: []
-      }
       canais_comunicacao: {
         Row: {
           acessos: number | null
@@ -231,18 +156,18 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'cotacoes_frete_pedido_id_fkey'
-            columns: ['pedido_id']
+            foreignKeyName: "cotacoes_frete_pedido_id_fkey"
+            columns: ["pedido_id"]
             isOneToOne: false
-            referencedRelation: 'pedidos'
-            referencedColumns: ['id']
+            referencedRelation: "pedidos"
+            referencedColumns: ["id"]
           },
           {
-            foreignKeyName: 'cotacoes_frete_transportadora_id_fkey'
-            columns: ['transportadora_id']
+            foreignKeyName: "cotacoes_frete_transportadora_id_fkey"
+            columns: ["transportadora_id"]
             isOneToOne: false
-            referencedRelation: 'transportadoras'
-            referencedColumns: ['id']
+            referencedRelation: "transportadoras"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -279,11 +204,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'historico_atualizacoes_pedido_id_fkey'
-            columns: ['pedido_id']
+            foreignKeyName: "historico_atualizacoes_pedido_id_fkey"
+            columns: ["pedido_id"]
             isOneToOne: false
-            referencedRelation: 'pedidos'
-            referencedColumns: ['id']
+            referencedRelation: "pedidos"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -317,11 +242,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'itens_pedido_pedido_id_fkey'
-            columns: ['pedido_id']
+            foreignKeyName: "itens_pedido_pedido_id_fkey"
+            columns: ["pedido_id"]
             isOneToOne: false
-            referencedRelation: 'pedidos'
-            referencedColumns: ['id']
+            referencedRelation: "pedidos"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -361,11 +286,11 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'notificacoes_enviadas_pedido_id_fkey'
-            columns: ['pedido_id']
+            foreignKeyName: "notificacoes_enviadas_pedido_id_fkey"
+            columns: ["pedido_id"]
             isOneToOne: false
-            referencedRelation: 'pedidos'
-            referencedColumns: ['id']
+            referencedRelation: "pedidos"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -465,138 +390,91 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: 'pedidos_cliente_id_fkey'
-            columns: ['cliente_id']
+            foreignKeyName: "pedidos_cliente_id_fkey"
+            columns: ["cliente_id"]
             isOneToOne: false
-            referencedRelation: 'clientes'
-            referencedColumns: ['id']
+            referencedRelation: "clientes"
+            referencedColumns: ["id"]
           },
         ]
       }
-      performance_campanha: {
+      performance_campanhas: {
         Row: {
           alcance: number | null
-          campanha_nome: string | null
-          cliques: number | null
-          cliques_base_ads: number | null
-          cliques_base_rd: number | null
-          conversoes: number | null
-          criado_em: string
-          ctr: number | null
+          atualizado_em: string | null
+          cliques_ads: number | null
+          cliques_rd: number | null
+          criado_em: string | null
+          ctr_percentual: number | null
           cvl: number | null
           data_fim: string | null
           data_inicio: string | null
           dif_cliques: number | null
-          dif_leads: number | null
-          id: string
           impressoes: number | null
           investimento: number | null
-          leads: number | null
-          leads_base_planilhas_vendas: number | null
-          leads_base_rd: number | null
-          leads_orcamento: number | null
-          orcamento_pedido: number | null
-          orcamentos_semana: number | null
-          ordem: number | null
-          pedidos_semana: number | null
-          plataforma: string | null
+          leads_orcamento_percentual: number | null
+          leads_planilha: number | null
+          leads_rd: number | null
+          nome_campanha: string | null
+          orcamento_pedido_percentual: number | null
+          orcamentos_qtd: number | null
+          orcamentos_valor: number | null
+          pedidos_qtd: number | null
+          pedidos_valor: number | null
+          plataforma_canal: string | null
           publico: string | null
-          roi: number | null
-          usuario_id: string
         }
         Insert: {
           alcance?: number | null
-          campanha_nome?: string | null
-          cliques?: number | null
-          cliques_base_ads?: number | null
-          cliques_base_rd?: number | null
-          conversoes?: number | null
-          criado_em?: string
-          ctr?: number | null
+          atualizado_em?: string | null
+          cliques_ads?: number | null
+          cliques_rd?: number | null
+          criado_em?: string | null
+          ctr_percentual?: number | null
           cvl?: number | null
           data_fim?: string | null
           data_inicio?: string | null
           dif_cliques?: number | null
-          dif_leads?: number | null
-          id?: string
           impressoes?: number | null
           investimento?: number | null
-          leads?: number | null
-          leads_base_planilhas_vendas?: number | null
-          leads_base_rd?: number | null
-          leads_orcamento?: number | null
-          orcamento_pedido?: number | null
-          orcamentos_semana?: number | null
-          ordem?: number | null
-          pedidos_semana?: number | null
-          plataforma?: string | null
+          leads_orcamento_percentual?: number | null
+          leads_planilha?: number | null
+          leads_rd?: number | null
+          nome_campanha?: string | null
+          orcamento_pedido_percentual?: number | null
+          orcamentos_qtd?: number | null
+          orcamentos_valor?: number | null
+          pedidos_qtd?: number | null
+          pedidos_valor?: number | null
+          plataforma_canal?: string | null
           publico?: string | null
-          roi?: number | null
-          usuario_id: string
         }
         Update: {
           alcance?: number | null
-          campanha_nome?: string | null
-          cliques?: number | null
-          cliques_base_ads?: number | null
-          cliques_base_rd?: number | null
-          conversoes?: number | null
-          criado_em?: string
-          ctr?: number | null
+          atualizado_em?: string | null
+          cliques_ads?: number | null
+          cliques_rd?: number | null
+          criado_em?: string | null
+          ctr_percentual?: number | null
           cvl?: number | null
           data_fim?: string | null
           data_inicio?: string | null
           dif_cliques?: number | null
-          dif_leads?: number | null
-          id?: string
           impressoes?: number | null
           investimento?: number | null
-          leads?: number | null
-          leads_base_planilhas_vendas?: number | null
-          leads_base_rd?: number | null
-          leads_orcamento?: number | null
-          orcamento_pedido?: number | null
-          orcamentos_semana?: number | null
-          ordem?: number | null
-          pedidos_semana?: number | null
-          plataforma?: string | null
+          leads_orcamento_percentual?: number | null
+          leads_planilha?: number | null
+          leads_rd?: number | null
+          nome_campanha?: string | null
+          orcamento_pedido_percentual?: number | null
+          orcamentos_qtd?: number | null
+          orcamentos_valor?: number | null
+          pedidos_qtd?: number | null
+          pedidos_valor?: number | null
+          plataforma_canal?: string | null
           publico?: string | null
-          roi?: number | null
-          usuario_id?: string
         }
         Relationships: []
-      }
-      performance_campanha_historico: {
-        Row: {
-          campanha_id: string | null
-          cliques_base_rd_semana_anterior: number | null
-          criado_em: string
-          id: string
-          leads_base_rd_semana_anterior: number | null
-        }
-        Insert: {
-          campanha_id?: string | null
-          cliques_base_rd_semana_anterior?: number | null
-          criado_em?: string
-          id?: string
-          leads_base_rd_semana_anterior?: number | null
-        }
-        Update: {
-          campanha_id?: string | null
-          cliques_base_rd_semana_anterior?: number | null
-          criado_em?: string
-          id?: string
-          leads_base_rd_semana_anterior?: number | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: 'performance_campanha_historico_campanha_id_fkey'
-            columns: ['campanha_id']
-            isOneToOne: false
-            referencedRelation: 'performance_campanha'
-            referencedColumns: ['id']
-          },
-        ]
       }
       templates_mensagem: {
         Row: {
@@ -698,31 +576,33 @@ export type Database = {
   }
 }
 
-type DatabaseWithoutInternals = Omit<Database, '__InternalSupabase'>
+type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
 
-type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, 'public'>]
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
 
 export type Tables<
   DefaultSchemaTableNameOrOptions extends
-    | keyof (DefaultSchema['Tables'] & DefaultSchema['Views'])
+    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
-        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Views'])
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
     : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'] &
-      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Views'])[TableName] extends {
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema['Tables'] & DefaultSchema['Views'])
-    ? (DefaultSchema['Tables'] & DefaultSchema['Views'])[DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])
+    ? (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
         Row: infer R
       }
       ? R
@@ -731,23 +611,23 @@ export type Tables<
 
 export type TablesInsert<
   DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema['Tables']
+    | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables']
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
-    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
         Insert: infer I
       }
       ? I
@@ -756,23 +636,23 @@ export type TablesInsert<
 
 export type TablesUpdate<
   DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema['Tables']
+    | keyof DefaultSchema["Tables"]
     | { schema: keyof DatabaseWithoutInternals },
   TableName extends DefaultSchemaTableNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables']
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
     : never = never,
 > = DefaultSchemaTableNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions['schema']]['Tables'][TableName] extends {
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema['Tables']
-    ? DefaultSchema['Tables'][DefaultSchemaTableNameOrOptions] extends {
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
         Update: infer U
       }
       ? U
@@ -781,36 +661,36 @@ export type TablesUpdate<
 
 export type Enums<
   DefaultSchemaEnumNameOrOptions extends
-    | keyof DefaultSchema['Enums']
+    | keyof DefaultSchema["Enums"]
     | { schema: keyof DatabaseWithoutInternals },
   EnumName extends DefaultSchemaEnumNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions['schema']]['Enums']
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
 > = DefaultSchemaEnumNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions['schema']]['Enums'][EnumName]
-  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema['Enums']
-    ? DefaultSchema['Enums'][DefaultSchemaEnumNameOrOptions]
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
+    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
     : never
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
-    | keyof DefaultSchema['CompositeTypes']
+    | keyof DefaultSchema["CompositeTypes"]
     | { schema: keyof DatabaseWithoutInternals },
   CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
     schema: keyof DatabaseWithoutInternals
   }
-    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes']
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
     : never = never,
 > = PublicCompositeTypeNameOrOptions extends {
   schema: keyof DatabaseWithoutInternals
 }
-  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions['schema']]['CompositeTypes'][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema['CompositeTypes']
-    ? DefaultSchema['CompositeTypes'][PublicCompositeTypeNameOrOptions]
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
+    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
 
 export const Constants = {
@@ -818,6 +698,7 @@ export const Constants = {
     Enums: {},
   },
 } as const
+
 
 // ====== DATABASE EXTENDED CONTEXT (auto-generated) ======
 // This section contains actual PostgreSQL column types, constraints, RLS policies,
@@ -829,31 +710,6 @@ export const Constants = {
 // --- COLUMN TYPES (actual PostgreSQL types) ---
 // Use this to know the real database type when writing migrations.
 // "string" in TypeScript types above may be uuid, text, varchar, timestamptz, etc.
-// Table: campanhas_old_backup
-//   id: uuid (not null, default: gen_random_uuid())
-//   data_inicio: date (nullable)
-//   data_fim: date (nullable)
-//   plataforma_canal: text (nullable)
-//   nome_campanha: text (nullable)
-//   publico: text (nullable)
-//   investimento: numeric (nullable, default: 0)
-//   impressoes: numeric (nullable, default: 0)
-//   alcance: numeric (nullable, default: 0)
-//   cliques_rd: numeric (nullable, default: 0)
-//   cliques_ads: numeric (nullable, default: 0)
-//   ctr: numeric (nullable, default: 0)
-//   dif_cliques: numeric (nullable, default: 0)
-//   leads_plan: numeric (nullable, default: 0)
-//   leads_rd: numeric (nullable, default: 0)
-//   cvl: numeric (nullable, default: 0)
-//   orcamentos_qtd: numeric (nullable, default: 0)
-//   valor_orcamento: numeric (nullable, default: 0)
-//   pedidos_qtd: numeric (nullable, default: 0)
-//   valor_pedidos: numeric (nullable, default: 0)
-//   leads_orcamento: numeric (nullable, default: 0)
-//   orcamento_pedido: numeric (nullable, default: 0)
-//   usuario_id: uuid (not null)
-//   criado_em: timestamp with time zone (not null, default: now())
 // Table: canais_comunicacao
 //   id: uuid (not null, default: gen_random_uuid())
 //   data_inicio: date (nullable)
@@ -950,41 +806,30 @@ export const Constants = {
 //   notas_internas: text (nullable)
 //   criado_por: uuid (not null)
 //   atualizado_em: timestamp with time zone (nullable, default: now())
-// Table: performance_campanha
-//   id: uuid (not null, default: gen_random_uuid())
+// Table: performance_campanhas
 //   data_inicio: date (nullable)
 //   data_fim: date (nullable)
-//   campanha_nome: text (nullable)
-//   impressoes: numeric (nullable, default: 0)
-//   alcance: numeric (nullable, default: 0)
-//   cliques: numeric (nullable, default: 0)
-//   ctr: numeric (nullable, default: 0)
-//   leads: numeric (nullable, default: 0)
-//   conversoes: numeric (nullable, default: 0)
-//   roi: numeric (nullable, default: 0)
-//   usuario_id: uuid (not null)
-//   criado_em: timestamp with time zone (not null, default: now())
-//   plataforma: text (nullable)
+//   plataforma_canal: text (nullable)
+//   nome_campanha: text (nullable)
 //   publico: text (nullable)
-//   investimento: numeric (nullable, default: 0)
-//   cliques_base_ads: numeric (nullable, default: 0)
-//   cliques_base_rd: numeric (nullable, default: 0)
-//   leads_base_planilhas_vendas: numeric (nullable, default: 0)
-//   leads_base_rd: numeric (nullable, default: 0)
-//   orcamentos_semana: numeric (nullable, default: 0)
-//   pedidos_semana: numeric (nullable, default: 0)
-//   dif_cliques: numeric (nullable, default: 0)
-//   cvl: numeric (nullable, default: 0)
-//   dif_leads: numeric (nullable, default: 0)
-//   leads_orcamento: numeric (nullable, default: 0)
-//   orcamento_pedido: numeric (nullable, default: 0)
-//   ordem: integer (nullable, default: 0)
-// Table: performance_campanha_historico
-//   id: uuid (not null, default: gen_random_uuid())
-//   campanha_id: uuid (nullable)
-//   cliques_base_rd_semana_anterior: numeric (nullable, default: 0)
-//   leads_base_rd_semana_anterior: numeric (nullable, default: 0)
-//   criado_em: timestamp with time zone (not null, default: now())
+//   investimento: numeric (nullable)
+//   impressoes: numeric (nullable)
+//   alcance: numeric (nullable)
+//   cliques_ads: numeric (nullable)
+//   cliques_rd: numeric (nullable)
+//   ctr_percentual: numeric (nullable)
+//   dif_cliques: numeric (nullable)
+//   leads_planilha: numeric (nullable)
+//   leads_rd: numeric (nullable)
+//   cvl: numeric (nullable)
+//   orcamentos_qtd: numeric (nullable)
+//   orcamentos_valor: numeric (nullable)
+//   pedidos_qtd: numeric (nullable)
+//   pedidos_valor: numeric (nullable)
+//   leads_orcamento_percentual: numeric (nullable)
+//   orcamento_pedido_percentual: numeric (nullable)
+//   criado_em: timestamp with time zone (nullable, default: now())
+//   atualizado_em: timestamp with time zone (nullable, default: now())
 // Table: templates_mensagem
 //   id: uuid (not null, default: gen_random_uuid())
 //   status: text (not null)
@@ -1009,9 +854,6 @@ export const Constants = {
 //   senha: text (nullable)
 
 // --- CONSTRAINTS ---
-// Table: campanhas_old_backup
-//   PRIMARY KEY campanhas_pkey: PRIMARY KEY (id)
-//   FOREIGN KEY campanhas_usuario_id_fkey: FOREIGN KEY (usuario_id) REFERENCES auth.users(id) ON DELETE CASCADE
 // Table: canais_comunicacao
 //   PRIMARY KEY canais_comunicacao_pkey: PRIMARY KEY (id)
 //   FOREIGN KEY canais_comunicacao_usuario_id_fkey: FOREIGN KEY (usuario_id) REFERENCES auth.users(id) ON DELETE CASCADE
@@ -1042,12 +884,6 @@ export const Constants = {
 //   FOREIGN KEY pedidos_criado_por_fkey: FOREIGN KEY (criado_por) REFERENCES auth.users(id) ON DELETE CASCADE
 //   UNIQUE pedidos_numero_rastreio_key: UNIQUE (numero_rastreio)
 //   PRIMARY KEY pedidos_pkey: PRIMARY KEY (id)
-// Table: performance_campanha
-//   PRIMARY KEY performance_campanha_pkey: PRIMARY KEY (id)
-//   FOREIGN KEY performance_campanha_usuario_id_fkey: FOREIGN KEY (usuario_id) REFERENCES auth.users(id) ON DELETE CASCADE
-// Table: performance_campanha_historico
-//   FOREIGN KEY performance_campanha_historico_campanha_id_fkey: FOREIGN KEY (campanha_id) REFERENCES performance_campanha(id) ON DELETE CASCADE
-//   PRIMARY KEY performance_campanha_historico_pkey: PRIMARY KEY (id)
 // Table: templates_mensagem
 //   FOREIGN KEY templates_mensagem_criado_por_fkey: FOREIGN KEY (criado_por) REFERENCES auth.users(id) ON DELETE CASCADE
 //   PRIMARY KEY templates_mensagem_pkey: PRIMARY KEY (id)
@@ -1060,16 +896,6 @@ export const Constants = {
 //   PRIMARY KEY usuarios_pkey: PRIMARY KEY (id)
 
 // --- ROW LEVEL SECURITY POLICIES ---
-// Table: campanhas_old_backup
-//   Policy "campanhas_delete" (DELETE, PERMISSIVE) roles={authenticated}
-//     USING: true
-//   Policy "campanhas_insert" (INSERT, PERMISSIVE) roles={authenticated}
-//     WITH CHECK: true
-//   Policy "campanhas_select" (SELECT, PERMISSIVE) roles={authenticated}
-//     USING: true
-//   Policy "campanhas_update" (UPDATE, PERMISSIVE) roles={authenticated}
-//     USING: true
-//     WITH CHECK: true
 // Table: canais_comunicacao
 //   Policy "canais_all" (ALL, PERMISSIVE) roles={authenticated}
 //     USING: true
@@ -1108,14 +934,14 @@ export const Constants = {
 //     USING: (criado_por = auth.uid())
 //   Policy "anon_select_pedidos" (SELECT, PERMISSIVE) roles={public}
 //     USING: true
-// Table: performance_campanha
-//   Policy "perf_delete" (DELETE, PERMISSIVE) roles={authenticated}
+// Table: performance_campanhas
+//   Policy "performance_campanhas_delete_own" (DELETE, PERMISSIVE) roles={authenticated}
 //     USING: true
-//   Policy "perf_insert" (INSERT, PERMISSIVE) roles={authenticated}
+//   Policy "performance_campanhas_insert_own" (INSERT, PERMISSIVE) roles={authenticated}
 //     WITH CHECK: true
-//   Policy "perf_select" (SELECT, PERMISSIVE) roles={authenticated}
+//   Policy "performance_campanhas_select_own" (SELECT, PERMISSIVE) roles={authenticated}
 //     USING: true
-//   Policy "perf_update" (UPDATE, PERMISSIVE) roles={authenticated}
+//   Policy "performance_campanhas_update_own" (UPDATE, PERMISSIVE) roles={authenticated}
 //     USING: true
 //     WITH CHECK: true
 // Table: templates_mensagem
@@ -1129,13 +955,6 @@ export const Constants = {
 //     USING: true
 //     WITH CHECK: true
 
-// --- WARNING: TABLES WITH RLS ENABLED BUT NO POLICIES ---
-// These tables have Row Level Security enabled but NO policies defined.
-// This means ALL queries (SELECT, INSERT, UPDATE, DELETE) will return ZERO rows
-// for non-superuser roles (including the anon and authenticated roles used by the app).
-// You MUST create RLS policies for these tables to allow data access.
-//   - performance_campanha_historico
-
 // --- DATABASE FUNCTIONS ---
 // FUNCTION calc_outros_canais()
 //   CREATE OR REPLACE FUNCTION public.calc_outros_canais()
@@ -1148,7 +967,7 @@ export const Constants = {
 //       RETURN NEW;
 //   END;
 //   $function$
-//
+//   
 // FUNCTION calc_performance_campanha()
 //   CREATE OR REPLACE FUNCTION public.calc_performance_campanha()
 //    RETURNS trigger
@@ -1160,7 +979,7 @@ export const Constants = {
 //       RETURN NEW;
 //   END;
 //   $function$
-//
+//   
 // FUNCTION calc_performance_campanha_new()
 //   CREATE OR REPLACE FUNCTION public.calc_performance_campanha_new()
 //    RETURNS trigger
@@ -1173,7 +992,7 @@ export const Constants = {
 //       NEW.cvl := CASE WHEN NEW.leads_base_planilhas_vendas > 0 THEN NEW.leads_base_rd / NEW.leads_base_planilhas_vendas ELSE 0 END;
 //       NEW.leads_orcamento := CASE WHEN NEW.orcamentos_semana > 0 THEN (NEW.leads_base_rd / NEW.orcamentos_semana) * 100 ELSE 0 END;
 //       NEW.orcamento_pedido := CASE WHEN NEW.pedidos_semana > 0 THEN (NEW.orcamentos_semana / NEW.pedidos_semana) * 100 ELSE 0 END;
-//
+//   
 //       SELECT * INTO hist FROM public.performance_campanha_historico WHERE campanha_id = NEW.id ORDER BY criado_em DESC LIMIT 1;
 //       IF FOUND THEN
 //           NEW.dif_cliques := NEW.cliques_base_rd - hist.cliques_base_rd_semana_anterior;
@@ -1182,14 +1001,14 @@ export const Constants = {
 //           NEW.dif_cliques := NEW.cliques_base_rd;
 //           NEW.dif_leads := NEW.leads_base_rd;
 //       END IF;
-//
+//   
 //       NEW.cliques := NEW.cliques_base_ads;
 //       NEW.leads := NEW.leads_base_rd;
-//
+//   
 //       RETURN NEW;
 //   END;
 //   $function$
-//
+//   
 // FUNCTION calculate_campanhas_metrics()
 //   CREATE OR REPLACE FUNCTION public.calculate_campanhas_metrics()
 //    RETURNS trigger
@@ -1202,7 +1021,7 @@ export const Constants = {
 //       NEW.cvl := CASE WHEN NEW.leads_base_planilhas_vendas > 0 THEN NEW.leads_base_rd / NEW.leads_base_planilhas_vendas ELSE 0 END;
 //       NEW.leads_orcamento := CASE WHEN NEW.orcamentos_semana > 0 THEN (NEW.leads_base_rd / NEW.orcamentos_semana) * 100 ELSE 0 END;
 //       NEW.orcamento_pedido := CASE WHEN NEW.pedidos_semana > 0 THEN (NEW.orcamentos_semana / NEW.pedidos_semana) * 100 ELSE 0 END;
-//
+//   
 //       SELECT * INTO hist FROM public.campanhas_historico_semanal WHERE campanha_id = NEW.id ORDER BY criado_em DESC LIMIT 1;
 //       IF FOUND THEN
 //           NEW.dif_cliques_base_rd := NEW.cliques_base_rd - hist.cliques_base_rd_semana_anterior;
@@ -1211,11 +1030,11 @@ export const Constants = {
 //           NEW.dif_cliques_base_rd := NEW.cliques_base_rd;
 //           NEW.dif_leads_base_rd := NEW.leads_base_rd;
 //       END IF;
-//
+//   
 //       RETURN NEW;
 //   END;
 //   $function$
-//
+//   
 // FUNCTION calculate_canais_metrics()
 //   CREATE OR REPLACE FUNCTION public.calculate_canais_metrics()
 //    RETURNS trigger
@@ -1227,7 +1046,61 @@ export const Constants = {
 //       RETURN NEW;
 //   END;
 //   $function$
-//
+//   
+// FUNCTION fn_performance_campanhas_calc()
+//   CREATE OR REPLACE FUNCTION public.fn_performance_campanhas_calc()
+//    RETURNS trigger
+//    LANGUAGE plpgsql
+//    SECURITY DEFINER
+//   AS $function$
+//   BEGIN
+//     -- CTR
+//     IF NEW.impressoes IS NULL OR NEW.impressoes = 0 THEN
+//       NEW.ctr_percentual := NULL;
+//     ELSE
+//       NEW.ctr_percentual := (NEW.cliques_ads / NEW.impressoes) * 100;
+//     END IF;
+//   
+//     -- CVL
+//     IF NEW.leads_planilha IS NULL OR NEW.leads_planilha = 0 THEN
+//       NEW.cvl := NULL;
+//     ELSE
+//       NEW.cvl := (NEW.leads_rd / NEW.leads_planilha);
+//     END IF;
+//   
+//     -- Leads/Orçamentos %
+//     IF NEW.orcamentos_qtd IS NULL OR NEW.orcamentos_qtd = 0 THEN
+//       NEW.leads_orcamento_percentual := NULL;
+//     ELSE
+//       NEW.leads_orcamento_percentual := (NEW.leads_rd / NEW.orcamentos_qtd) * 100;
+//     END IF;
+//   
+//     -- Orçamentos/Pedidos %
+//     IF NEW.pedidos_qtd IS NULL OR NEW.pedidos_qtd = 0 THEN
+//       NEW.orcamento_pedido_percentual := NULL;
+//     ELSE
+//       NEW.orcamento_pedido_percentual := (NEW.orcamentos_qtd / NEW.pedidos_qtd) * 100;
+//     END IF;
+//   
+//     -- dif_cliques (não especificado na lista, mas parece derivado)
+//     IF NEW.cliques_ads IS NULL OR NEW.cliques_rd IS NULL THEN
+//       NEW.dif_cliques := NULL;
+//     ELSE
+//       NEW.dif_cliques := NEW.cliques_ads - NEW.cliques_rd;
+//     END IF;
+//   
+//     -- timestamps
+//     NEW.atualizado_em := now();
+//     IF TG_OP = 'INSERT' THEN
+//       IF NEW.criado_em IS NULL THEN
+//         NEW.criado_em := now();
+//       END IF;
+//     END IF;
+//   
+//     RETURN NEW;
+//   END;
+//   $function$
+//   
 // FUNCTION handle_new_user()
 //   CREATE OR REPLACE FUNCTION public.handle_new_user()
 //    RETURNS trigger
@@ -1240,7 +1113,7 @@ export const Constants = {
 //     RETURN NEW;
 //   END;
 //   $function$
-//
+//   
 // FUNCTION rls_auto_enable()
 //   CREATE OR REPLACE FUNCTION public.rls_auto_enable()
 //    RETURNS event_trigger
@@ -1271,15 +1144,15 @@ export const Constants = {
 //     END LOOP;
 //   END;
 //   $function$
-//
+//   
 
 // --- TRIGGERS ---
 // Table: canais_comunicacao
 //   trg_calculate_canais_metrics: CREATE TRIGGER trg_calculate_canais_metrics BEFORE INSERT OR UPDATE ON public.canais_comunicacao FOR EACH ROW EXECUTE FUNCTION calculate_canais_metrics()
 // Table: outros_canais
 //   trg_calc_outros_canais: CREATE TRIGGER trg_calc_outros_canais BEFORE INSERT OR UPDATE ON public.outros_canais FOR EACH ROW EXECUTE FUNCTION calc_outros_canais()
-// Table: performance_campanha
-//   trg_calc_performance_campanha: CREATE TRIGGER trg_calc_performance_campanha BEFORE INSERT OR UPDATE ON public.performance_campanha FOR EACH ROW EXECUTE FUNCTION calc_performance_campanha_new()
+// Table: performance_campanhas
+//   trg_performance_campanhas_calc: CREATE TRIGGER trg_performance_campanhas_calc BEFORE INSERT OR UPDATE ON public.performance_campanhas FOR EACH ROW EXECUTE FUNCTION fn_performance_campanhas_calc()
 
 // --- INDEXES ---
 // Table: clientes
@@ -1288,3 +1161,4 @@ export const Constants = {
 //   CREATE UNIQUE INDEX pedidos_numero_rastreio_key ON public.pedidos USING btree (numero_rastreio)
 // Table: transportadoras
 //   CREATE UNIQUE INDEX transportadoras_nome_key ON public.transportadoras USING btree (nome)
+

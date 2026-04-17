@@ -1,0 +1,7 @@
+{
+  "_versions": {
+    "aggregate-daily": 4,
+    "enviar-notificacao-cliente": 3,
+    "sync-github": 1
+  }
+}
